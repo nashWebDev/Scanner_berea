@@ -16,6 +16,7 @@
   <script>
     function onScanSuccess(decodedText, decodedResult) {
       document.getElementById('result').innerText = "QR Code Value: " + decodedText;
+      showStudent(decodedText)
     }
     function onScanFailure(error) {
       // Optionally handle scan failure
@@ -27,7 +28,7 @@
 
     async function showStudent(decodedText) {
 
-      await fetch('https://myfinanceapp.loca.lt/api/scanVerify/' + decodedText)
+      await fetch(`https://myfinanceapp.loca.lt/api/scanVerify/${decodedText}`)
         .then(response => response.json())
         .then(data => {
           if (data.success) {
