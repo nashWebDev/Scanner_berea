@@ -14,10 +14,16 @@
   <div id="reader"></div>
   <div id="result">Scan a QR code...</div>
   <script>
-    function onScanSuccess(decodedText, decodedResult) {
-      document.getElementById('result').innerText = "QR Code Value: " + decodedText;
-      showStudent(decodedText)
-    }
+    let lastScannedText = "";
+
+async function onScanSuccess(decodedText, decodedResult) {
+  if (decodedText === lastScannedText) return; // prevent duplicate scans
+  lastScannedText = decodedText;
+
+  document.getElementById('result').innerText = "Scanning: " + decodedText;
+  await showStudent(decodedText);
+}
+
     function onScanFailure(error) {
       // Optionally handle scan failure
     }
