@@ -42,12 +42,12 @@ async function onScanSuccess(decodedText, decodedResult) {
             document.getElementById('result').innerText = `${JSON.stringify(data)}`;
           } else {
             document.getElementById('result').innerText = "No student found for this QR code.";
+            console.log(data);
           }
         })
         .catch(error => {
           console.error('Error fetching student data:', error);
-                    document.getElementById('result').innerText = `Error fetching student data: ${error}`;
-
+          document.getElementById('result').innerText = `Error fetching student data: ${error}`;
         });
 
     }
