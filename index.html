@@ -23,6 +23,30 @@
     let html5QrcodeScanner = new Html5QrcodeScanner(
       "reader", { fps: 10, qrbox: 250 });
     html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+
+
+    async function showStudent(decodedText) {
+
+      await fetch('https://myfinanceapp.loca.lt/api/scanVerify/' + decodedText)
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            // Display student information
+            document.getElementById('result').innerText = `${JSON.stringify(data)}`;
+          } else {
+            document.getElementById('result').innerText = "No student found for this QR code.";
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching student data:', error);
+          document.getElementById('result').innerText = "Error fetching student data.";
+        });
+
+    }
+
+
+
+
   </script>
 </body>
 </html>
