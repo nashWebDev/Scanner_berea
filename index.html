@@ -12,7 +12,7 @@
 <body>
   <h2 style="text-align:center;">QR Code Scanner</h2>
   <div id="reader"></div>
-  <div id="result">Scan a QR code...</div>
+  <ul id="result">Scan a QR code...</ul>
   <script>
     let lastScannedText = "";
 
@@ -38,11 +38,28 @@ async function onScanSuccess(decodedText, decodedResult) {
         .then(response => response.json())
         .then(data => {
           if (data.success) {
-            // Display student information
-            document.getElementById('result').innerText = `${JSON.stringify(data)}`;
+            // Display student information as a <ul>
+            let ul = document.createElement('ul');
+            Object.entries(data).forEach(([key, value]) => {
+              let li = document.createElement('li');
+              li.textContent = `${key}: ${value}`;
+              ul.appendChild(li);
+            });
+            let resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = ''; // Clear previous content
+            resultDiv.appendChild(ul);
           } else {
-            document.getElementById('result').innerText = "No student found for this QR code.";
+            document.getElementById('result').innerText = data.message || "Verification failed";
             console.log(data);
+            let ul = document.createElement('ul');
+            Object.entries(data).forEach(([key, value]) => {
+              let li = document.createElement('li');
+              li.textContent = `${key}: ${value}`;
+              ul.appendChild(li);
+            });
+            let resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = ''; // Clear previous content
+            resultDiv.appendChild(ul);
           }
         })
         .catch(error => {
