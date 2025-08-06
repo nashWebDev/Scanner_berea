@@ -34,7 +34,7 @@ async function onScanSuccess(decodedText, decodedResult) {
 
     async function showStudent(decodedText) {
 
-      await fetch(` https://primary-skins-introductory-gl.trycloudflare.com/scanVerify/${decodedText}`)
+      await fetch(` https://primary-skins-introductory-gl.trycloudflare.com/api/scanVerify/${decodedText}`)
         .then(response => response.json())
         .then(data => {
           if (data.success) {
@@ -75,4 +75,5 @@ async function onScanSuccess(decodedText, decodedResult) {
   </script>
 </body>
 </html>
+
 
